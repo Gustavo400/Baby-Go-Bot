@@ -44,22 +44,26 @@ func Start() {
 
 func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
+	//Checking incoming messages for "I'm __" and most variations for that
+	dadJoke, _ := regexp.Compile("[iI]['\"’]?[mM] ([-a-zA-Z0-9’' ]+)")
+
+	var test = dadJoke.FindStringSubmatch(m.Content)
+
+	//Sending a message as response in the form of a dad joke
+	if test != nil {
+		_, _ = s.ChannelMessageSend(m.ChannelID, "Hi, "+test[1]+", I'm Baby Goose Bot!")
+	}
+
+	//Checking to make sure that the incoming message is not from the bot
 	if m.Author.ID == Id {
 		return
 	}
 
+	//Checking incoming messages for the phrase "ping" with any capitalization and responding with "pong"
 	var content = strings.ToLower(m.Content)
 
 	if content == "ping" {
 		_, _ = s.ChannelMessageSend(m.ChannelID, "pong")
-	}
-
-	r, _ := regexp.Compile("[iI]['\"’]?[mM] ([-a-zA-Z0-9’' ]+)")
-
-	var test = r.FindStringSubmatch(m.Content)
-
-	if test != nil {
-		_, _ = s.ChannelMessageSend(m.ChannelID, "Hi, "+test[1]+", I'm Baby Goose Bot!")
 	}
 
 }
