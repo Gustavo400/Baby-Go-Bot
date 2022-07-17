@@ -43,6 +43,7 @@ func Start() {
 }
 
 func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
+
 	if m.Author.ID == Id {
 		return
 	}
@@ -53,7 +54,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		_, _ = s.ChannelMessageSend(m.ChannelID, "pong")
 	}
 
-	r, _ := regexp.Compile("[iI]['\"]?[mM] ([a-zA-Z0-9 ]+)")
+	r, _ := regexp.Compile("[iI]['\"’]?[mM] ([-a-zA-Z0-9’' ]+)")
 
 	var test = r.FindStringSubmatch(m.Content)
 
