@@ -4,6 +4,7 @@ import (
 	"BabyGoBot/config"
 	"fmt"
 	"github.com/bwmarrin/discordgo"
+	"regexp"
 	"strings"
 )
 
@@ -42,9 +43,22 @@ func Start() {
 }
 
 func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
+	if m.Author.ID == Id {
+		return
+	}
+
 	var content = strings.ToLower(m.Content)
 
 	if content == "ping" {
 		_, _ = s.ChannelMessageSend(m.ChannelID, "pong")
 	}
+
+	r, _ := regexp.Compile("[iI]['\"]?[mM] ([a-zA-Z0-9 ]+)")
+
+	var test = r.FindStringSubmatch(m.Content)
+
+	if test != nil {
+		_, _ = s.ChannelMessageSend(m.ChannelID, "Hi, "+test[1]+", I'm Baby Goose Bot!")
+	}
+
 }
