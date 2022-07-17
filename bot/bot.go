@@ -4,6 +4,7 @@ import (
 	"BabyGoBot/config"
 	"fmt"
 	"github.com/bwmarrin/discordgo"
+	"strings"
 )
 
 var Id string
@@ -41,8 +42,9 @@ func Start() {
 }
 
 func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
+	var content = strings.ToLower(m.Content)
 
-	if m.Content == "ping" {
+	if content == "ping" {
 		_, _ = s.ChannelMessageSend(m.ChannelID, "pong")
 	}
 }
