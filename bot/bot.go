@@ -51,7 +51,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	var dadJokeMade = false
 
 	//Checking incoming messages for "I'm __" and most variations for that
-	dadJoke, _ := regexp.Compile("[iI]['\"’]?[mM] ([-a-zA-Z0-9’' ]+)")
+	dadJoke, _ := regexp.Compile(`[iI]['"’]?[mM] ([-a-zA-Z0-9’' ]+)`)
 
 	var test = dadJoke.FindStringSubmatch(m.Content)
 
@@ -61,6 +61,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		_, _ = s.ChannelMessageSend(m.ChannelID, "Hi, "+test[1]+", I'm Baby Goose Bot!")
 	}
 
+	//Another dad joke as requested by Tom
 	tomJoke, _ := regexp.Compile(`([a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]+)[eE][rR]\b`)
 
 	test = tomJoke.FindStringSubmatch(m.Content)
@@ -76,4 +77,11 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		_, _ = s.ChannelMessageSend(m.ChannelID, "pong")
 	}
 
+	/*
+		if strings.Contains(m.Content, "!roll") {
+			diceRoll, _ := regexp.Compile(`(([+-]?)([0-9]+)(d([0-9]+))?)`)
+
+			var die = diceRoll.FindStringSubmatch(m.Content)
+		}
+	*/
 }
