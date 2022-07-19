@@ -51,7 +51,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	var dadJokeMade = false
 
 	//Checking incoming messages for "I'm __" and most variations for that
-	dadJoke, _ := regexp.Compile(`[iI]['"’]?[mM] ([-a-zA-Z0-9’' ]+)`)
+	dadJoke, _ := regexp.Compile(`\b[iI]['"’]?[mM] ([-a-zA-Z0-9’' ]+)`)
 
 	var test = dadJoke.FindStringSubmatch(m.Content)
 
